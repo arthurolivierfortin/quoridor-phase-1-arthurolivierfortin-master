@@ -45,7 +45,9 @@ def formater_légende(joueurs):
     nom_automate = x[1]['nom']
     murs_IDUL = nb_murs_joueur1*'|'
     murs_automate = nb_murs_automate*'|'
-    return("Légende:\n"   f"   1={nom_IDUL},  murs={murs_IDUL}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
+    Légende = ("Légende:\n"   f"   1={nom_IDUL},  murs={murs_IDUL}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
+    return Légende
+
 
 def formater_damier(joueurs, murs):
     """Formater la représentation graphique du damier.
@@ -95,7 +97,9 @@ def formater_jeu(état):
     Returns:
         str: Chaîne de caractères représentant le jeu.
     """
-    pass
+    from quoridor import formater_légende 
+    from quoridor import formater_damier
+    return formater_légende(état['joueurs']) + formater_damier(état['joueurs'], état['murs'])
 
 
 def formater_les_parties(parties):
