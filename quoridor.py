@@ -37,8 +37,15 @@ def formater_légende(joueurs):
     Returns:
         str: Chaîne de caractères représentant la légende.
     """
-    pass
-
+    
+    x = joueurs
+    nb_murs_joueur1 = x([0]['murs'])
+    print(nb_murs_joueur1)
+    nb_murs_bot = x([0]['murs'])
+    print(nb_murs_bot)
+    print(nb_murs_joueur1)
+    print(nb_murs_bot)
+formater_légende(joueurs)
 
 def formater_damier(joueurs, murs):
     """Formater la représentation graphique du damier.
