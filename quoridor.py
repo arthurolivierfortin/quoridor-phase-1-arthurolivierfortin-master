@@ -41,9 +41,11 @@ def formater_légende(joueurs):
     x = joueurs
     nb_murs_joueur1 = x[0]['murs']
     nb_murs_automate = x[0]['murs']
+    nom_IDUL = x[0]['nom']
+    nom_automate = x[1]['nom']
     murs_IDUL = nb_murs_joueur1*'|'
     murs_automate = nb_murs_automate*'|'
-    return(f'Légende :\n   1={x[0]['nom']},     murs={murs_IDUL}\n   2={x[1]['nom']}, murs={murs_automate}')
+    return("Légende:\n"   f"   1={nom_IDUL},  murs={murs_IDUL}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
 
 def formater_damier(joueurs, murs):
     """Formater la représentation graphique du damier.

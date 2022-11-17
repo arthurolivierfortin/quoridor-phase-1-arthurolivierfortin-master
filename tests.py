@@ -19,7 +19,6 @@ def test_formater_légende_pour_une_nouvelle_partie():
 
     résultat = formater_légende(joueurs)
     print(résultat)
-
     assert résultat == attendu, "Échec du test de formater_légende pour une nouvelle partie"
 
 
