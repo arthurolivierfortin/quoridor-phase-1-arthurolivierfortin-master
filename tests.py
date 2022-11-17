@@ -56,7 +56,7 @@ def test_formater_damier_pour_une_nouvelle_partie():
     )
 
     résultat = formater_damier(joueurs, murs)
-
+    print(formater_damier(joueurs,murs))
     assert résultat == attendu, "Échec du test de formater_damier pour une nouvelle partie"
 
 
