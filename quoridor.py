@@ -43,9 +43,24 @@ def formater_légende(joueurs):
     nb_murs_automate = x[0]['murs']
     nom_IDUL = x[0]['nom']
     nom_automate = x[1]['nom']
-    murs_IDUL = nb_murs_joueur1*'|'
-    murs_automate = nb_murs_automate*'|'
-    Légende = ("Légende:\n"   f"   1={nom_IDUL},  murs={murs_IDUL}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
+    différence_espace = len(nom_IDUL) - len(nom_automate)
+    espace_ajoutée_automate = 0
+    espace_ajoutée_IDUL = 0
+    if différence_espace > 0:
+        espace_ajoutée_automate = 0
+        espace_ajoutée_automate = ((' '*(différence_espace)))
+        murs_IDUL = nb_murs_joueur1*'|'
+        murs_automate = nb_murs_automate*'|'
+        Légende = ("Légende:\n"   f"   1={nom_IDUL}, murs={murs_IDUL}\n"   f"   2={nom_automate}, {espace_ajoutée_automate}murs={murs_automate}\n")
+        return Légende
+    if différence_espace < 0:
+        espace_ajoutée_IDUL = 0
+        espace_ajoutée_IDUL = ((' '*(-1*(différence_espace))))
+        murs_IDUL = nb_murs_joueur1*'|'
+        murs_automate = nb_murs_automate*'|'
+        Légende = ("Légende:\n"   f"   1={nom_IDUL}, {espace_ajoutée_IDUL}murs={murs_IDUL}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
+        return Légende
+    Légende = ("Légende:\n"   f"   1={nom_IDUL}, murs={murs_IDUL}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
     return Légende
     
 

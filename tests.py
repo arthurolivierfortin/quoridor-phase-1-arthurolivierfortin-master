@@ -56,7 +56,7 @@ def test_formater_damier_pour_une_nouvelle_partie():
     )
 
     résultat = formater_damier(joueurs, murs)
-    print(formater_damier(joueurs,murs))
+    
     assert résultat == attendu, "Échec du test de formater_damier pour une nouvelle partie"
 
 
@@ -99,7 +99,7 @@ def test_formater_jeu_pour_une_nouvelle_partie():
     )
 
     résultat = formater_jeu(état)
-    print(résultat)
+    
     assert résultat == attendu, "Échec du test de formater_jeu pour une nouvelle partie"
 
 
@@ -142,7 +142,7 @@ def test_formater_jeu_pour_une_partie_avancée():
     )
 
     résultat = formater_jeu(état)
-
+    print(résultat)
     assert résultat == attendu, "Échec du test de formater_jeu pour une partie avancée"
 
 
