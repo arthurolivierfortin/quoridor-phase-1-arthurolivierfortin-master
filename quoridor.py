@@ -47,7 +47,7 @@ def formater_légende(joueurs):
     murs_automate = nb_murs_automate*'|'
     Légende = ("Légende:\n"   f"   1={nom_IDUL},  murs={murs_IDUL}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
     return Légende
-
+    
 
 def formater_damier(joueurs, murs):
     """Formater la représentation graphique du damier.
@@ -62,7 +62,7 @@ def formater_damier(joueurs, murs):
     
     damier_vide = (
         "   -----------------------------------\n"
-        "9 | .   .   .   .   2   .   .   .   . |\n"
+        "9 | .   .   .   .   .   .   .   .   . |\n"
         "  |                                   |\n"
         "8 | .   .   .   .   .   .   .   .   . |\n"
         "  |                                   |\n"
@@ -78,11 +78,24 @@ def formater_damier(joueurs, murs):
         "  |                                   |\n"
         "2 | .   .   .   .   .   .   .   .   . |\n"
         "  |                                   |\n"
-        "1 | .   .   .   .   1   .   .   .   . |\n"
+        "1 | .   .   .   .   .   .   .   .   . |\n"
         "--|-----------------------------------\n"
         "  | 1   2   3   4   5   6   7   8   9\n"
-    )
-    return damier_vide
+    )   
+    
+    damier = damier_vide
+    murs_verticaux = murs["verticaux"] 
+    for i in murs_verticaux:
+        x = damier.find(str(i[1]))
+        damier = list(damier)
+        y = (4+(4*((i[0])-1))-2)
+        damier[x+y] = ('|')
+        damier[x+y-40] = ('|')
+        damier[x+y-80] = ('|')
+        z = ''.join(damier)
+        damier = (z)
+    print(damier)     
+
            
 
 
@@ -100,7 +113,7 @@ def formater_jeu(état):
     from quoridor import formater_légende 
     from quoridor import formater_damier
     return formater_légende(état['joueurs']) + formater_damier(état['joueurs'], état['murs'])
-
+    pass
 
 def formater_les_parties(parties):
     """Formater une liste de parties
@@ -112,7 +125,7 @@ def formater_les_parties(parties):
     Returns:
         str: Représentation des parties
     """
-    pass
+    
 
 
 def récupérer_le_coup():
