@@ -84,7 +84,10 @@ def formater_damier(joueurs, murs):
     )   
     
     damier = damier_vide
-    murs_verticaux = murs["verticaux"] 
+    murs_verticaux = murs["verticaux"]
+    murs_horizontaux = murs["horizontaux"]
+    positionnement_IDUL = joueurs[0]['pos']
+    positionnement_automate = joueurs[1]['pos']
     for i in murs_verticaux:
         x = damier.find(str(i[1]))
         damier = list(damier)
@@ -94,9 +97,32 @@ def formater_damier(joueurs, murs):
         damier[x+y-80] = ('|')
         z = ''.join(damier)
         damier = (z)
-    print(damier)     
-
-           
+    for i in murs_horizontaux:
+            x = damier.find(str(i[1]))
+            damier = list(damier)
+            y = (+40+4+(4*((i[0])))-5)
+            damier[y+x] = ('-')
+            damier[y+x+1] = ('-')
+            damier[y+x+2] = ('-')
+            damier[y+x+3] = ('-')
+            damier[y+x+4] = ('-')
+            damier[y+x+5] = ('-')
+            damier[y+x+6] = ('-')
+            z = ''.join(damier)
+            damier = (z)
+    x = damier.find(str(positionnement_IDUL[1]))
+    damier = list(damier)
+    y = (4+(4*((positionnement_IDUL[0])-1)))
+    damier[y+x] = ('1')
+    z = ''.join(damier)
+    damier = (z)
+    x = damier.find(str(positionnement_automate[1]))
+    damier = list(damier)
+    y = (4+(4*((positionnement_automate[0])-1)))
+    damier[y+x] = ('2')
+    z = ''.join(damier)
+    damier = (z)
+    return damier      
 
 
 def formater_jeu(état):
