@@ -21,12 +21,13 @@ def analyser_commande():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('idul', type=str, default=None, help='IDUL du joueur')
+    parser.add_argument('parties', type=str, default=None, help='Lister les parties existantes' )
     # Complétez le code ici
     args = parser.parse_args()
     # vous pourriez aussi avoir à ajouter des arguments dans ArgumentParser(...)
 
     return parser.parse_args()
-
+analyser_commande()
 
 def formater_légende(joueurs):
     """Formater la représentation graphique de la légende.
@@ -156,7 +157,7 @@ def formater_jeu(état):
     from quoridor import formater_légende 
     from quoridor import formater_damier
     return formater_légende(état['joueurs']) + formater_damier(état['joueurs'], état['murs'])
-    pass
+
 
 def formater_les_parties(parties):
     """Formater une liste de parties
@@ -182,4 +183,4 @@ def récupérer_le_coup():
         Quel type de coup voulez-vous jouer? ('D', 'MH', 'MV'):
         Donnez la position où appliquer ce coup (x,y): 2,6
     """
-    pass
+    

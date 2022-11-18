@@ -31,7 +31,27 @@ def lister_parties(idul, secret):
         list: Liste des parties reçues du serveur,
              après avoir décodé le json de sa réponse.
     """
-    pass
+    import requests
+
+BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
+
+rep = requests.get(BASE_URL+'parties', auth=("votre-idul", "votre-jeton-personnel"))
+
+if rep.status_code == 200:
+    # la requête s'est déroulée normalement;
+    # décoder le JSON et afficher la liste de parties
+    rep = rep.json()
+    print(rep)
+
+elif rep.status_code == 401:
+    # Votre requête est invalide;
+    # décoder le JSON et afficher le message d'erreur
+    rep = rep.json()
+    print(rep)
+
+else:
+    # Une erreur inattendue est survenue
+    print(f"Le GET sur '{BASE_URL}parties' a produit le code d'erreur {rep.status_code}.")
 
 
 def débuter_partie(idul, secret):

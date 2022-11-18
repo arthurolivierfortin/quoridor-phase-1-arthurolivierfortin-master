@@ -142,7 +142,7 @@ def test_formater_jeu_pour_une_partie_avancée():
     )
 
     résultat = formater_jeu(état)
-    print(résultat)
+   
     assert résultat == attendu, "Échec du test de formater_jeu pour une partie avancée"
 
 
