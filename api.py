@@ -76,7 +76,6 @@ def débuter_partie(idul, secret):
             et de l'état courant du jeu, après avoir décodé
             le JSON de sa réponse.
     """
-    import requests
 
     pass
 
