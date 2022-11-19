@@ -11,8 +11,10 @@ Functions:
 """
 
 import requests
+import main
+SECRET = main.SECRET
 
-URL = "https://pax.ulaval.ca/quoridor/api/v2/"
+BASE_URL = "https://pax.ulaval.ca/quoridor/api/v2/"
 
 
 def lister_parties(idul, secret):
@@ -41,7 +43,7 @@ def lister_parties(idul, secret):
         # la requête s'est déroulée normalement;
         # décoder le JSON et afficher la liste de parties
         rep = rep.json()
-        print(rep)
+        return(rep)
 
     elif rep.status_code == 401:
         # Votre requête est invalide;
@@ -52,7 +54,7 @@ def lister_parties(idul, secret):
     elif rep.status_code == 406:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
-        raise ConnectionError (rep[1])
+        raise RuntimeError (rep[1])
         raise(rep)
     else:
         # Une erreur inattendue est survenue
@@ -76,8 +78,30 @@ def débuter_partie(idul, secret):
             et de l'état courant du jeu, après avoir décodé
             le JSON de sa réponse.
     """
+    import requests
+    
+    BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
-    pass
+    rep = requests.post(BASE_URL+'parties', auth=(idul, SECRET))
+
+    
+
+    if rep.status_code == 401:
+        # Votre requête est invalide;
+        # décoder le JSON et afficher le message d'erreur
+        rep = rep.json()
+        raise PermissionError (rep[1])
+
+    elif rep.status_code == 406:
+        # Votre requête est invalide;
+        # décoder le JSON et afficher le message d'erreur
+        raise RuntimeError (rep[1])
+        raise(rep)
+    elif re.status_code != 406 or re.status_code != 200 or re.status_code != 401 :
+        # Une erreur inattendue est survenue
+        raise ConnectionError
+    return(rep['id'], rep['état'], rep['gagnant'])
+
 
 
 def récupérer_partie(id_partie, idul, secret):
@@ -98,7 +122,28 @@ def récupérer_partie(id_partie, idul, secret):
             et de l'état courant du jeu, après avoir décodé
             le JSON de sa réponse.
     """
-    pass  
+    BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
+
+    rep = requests.get(BASE_URL+'parties/'+f'<{id_partie}>', auth=(idul, SECRET))
+    
+    if rep.status_code == 401:
+        # Votre requête est invalide;
+        # décoder le JSON et afficher le message d'erreur
+        rep = rep.json()
+        raise PermissionError (rep[1])
+
+    elif rep.status_code == 406:
+        # Votre requête est invalide;
+        # décoder le JSON et afficher le message d'erreur
+        raise RuntimeError (rep[1])
+        raise(rep)
+    
+    elif re.status_code != 406 or re.status_code != 200 or re.status_code != 401 :
+        # Une erreur inattendue est survenue
+        raise ConnectionError
+
+    return(rep['id'], rep['état'], rep['gagnant']) 
+
 def jouer_coup(id_partie, type_coup, position, idul, secret):
     """Jouer un coup
 
