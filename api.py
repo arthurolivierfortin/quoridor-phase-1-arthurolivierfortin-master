@@ -33,25 +33,30 @@ def lister_parties(idul, secret):
     """
     import requests
 
-BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
+    BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
-rep = requests.get(BASE_URL+'parties', auth=("votre-idul", "votre-jeton-personnel"))
+    rep = requests.get(BASE_URL+'parties', auth=(idul, SECRET))
 
-if rep.status_code == 200:
-    # la requête s'est déroulée normalement;
-    # décoder le JSON et afficher la liste de parties
-    rep = rep.json()
-    print(rep)
+    if rep.status_code == 200:
+        # la requête s'est déroulée normalement;
+        # décoder le JSON et afficher la liste de parties
+        rep = rep.json()
+        print(rep)
 
-elif rep.status_code == 401:
-    # Votre requête est invalide;
-    # décoder le JSON et afficher le message d'erreur
-    rep = rep.json()
-    print(rep)
+    elif rep.status_code == 401:
+        # Votre requête est invalide;
+        # décoder le JSON et afficher le message d'erreur
+        rep = rep.json()
+        raise PermissionError (rep[1])
 
-else:
-    # Une erreur inattendue est survenue
-    print(f"Le GET sur '{BASE_URL}parties' a produit le code d'erreur {rep.status_code}.")
+    elif rep.status_code == 406:
+        # Votre requête est invalide;
+        # décoder le JSON et afficher le message d'erreur
+        raise ConnectionError (rep[1])
+        raise(rep)
+    else:
+        # Une erreur inattendue est survenue
+        raise ConnectionError
 
 
 def débuter_partie(idul, secret):
@@ -71,6 +76,8 @@ def débuter_partie(idul, secret):
             et de l'état courant du jeu, après avoir décodé
             le JSON de sa réponse.
     """
+    import requests
+
     pass
 
 
@@ -92,9 +99,7 @@ def récupérer_partie(id_partie, idul, secret):
             et de l'état courant du jeu, après avoir décodé
             le JSON de sa réponse.
     """
-    pass
-
-
+    pass  
 def jouer_coup(id_partie, type_coup, position, idul, secret):
     """Jouer un coup
 
