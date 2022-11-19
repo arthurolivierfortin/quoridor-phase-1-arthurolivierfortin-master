@@ -168,4 +168,4 @@ def jouer_coup(id_partie, type_coup, position, idul, secret):
             et de l'état courant du jeu, après avoir décodé
             le JSON de sa réponse.
     """
-    pass
+    
