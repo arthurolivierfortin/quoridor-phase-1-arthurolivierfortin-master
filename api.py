@@ -11,10 +11,7 @@ Functions:
 """
 
 import requests
-
-
-BASE_URL = "https://pax.ulaval.ca/quoridor/api/v2/"
-
+BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
 def lister_parties(idul, SECRET):
     """Lister les parties
@@ -32,9 +29,6 @@ def lister_parties(idul, SECRET):
         list: Liste des parties reçues du serveur,
              après avoir décodé le json de sa réponse.
     """
-    import requests
-
-    BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
     rep = requests.get(BASE_URL+'parties', auth=(idul, SECRET))
 
@@ -44,17 +38,17 @@ def lister_parties(idul, SECRET):
         rep = rep.json()
         return(rep)
 
-    elif rep.status_code == 401:
+    if rep.status_code == 401:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         rep = rep.json()
         raise PermissionError (rep[1])
 
-    elif rep.status_code == 406:
+    if rep.status_code == 406:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         raise RuntimeError (rep[1])
-        raise(rep)
+
     else:
         # Une erreur inattendue est survenue
         raise ConnectionError
@@ -77,9 +71,6 @@ def débuter_partie(idul, SECRET):
             et de l'état courant du jeu, après avoir décodé
             le JSON de sa réponse.
     """
-    import requests
-
-    BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
     rep = requests.post(BASE_URL+'partie', auth=(idul, SECRET))
 
@@ -124,7 +115,6 @@ def récupérer_partie(id_partie, idul, SECRET):
             et de l'état courant du jeu, après avoir décodé
             le JSON de sa réponse.
     """
-    BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
     rep = requests.get(BASE_URL+'parties/'+f'<{id_partie}>', auth=(idul, SECRET))
 
@@ -170,9 +160,6 @@ def jouer_coup(id_partie, type_coup, position, idul, SECRET):
             et de l'état courant du jeu, après avoir décodé
             le JSON de sa réponse.
     """
-    import requests
-
-    BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
     rep = requests.put(BASE_URL+'jouer', auth=(idul, SECRET),json={
         "id": id_partie,
