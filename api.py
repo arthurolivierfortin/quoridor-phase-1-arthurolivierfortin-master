@@ -11,13 +11,12 @@ Functions:
 """
 
 import requests
-import main
-SECRET = main.SECRET
+
 
 BASE_URL = "https://pax.ulaval.ca/quoridor/api/v2/"
 
 
-def lister_parties(idul, secret):
+def lister_parties(idul, SECRET):
     """Lister les parties
 
     Args:
@@ -61,7 +60,7 @@ def lister_parties(idul, secret):
         raise ConnectionError
 
 
-def débuter_partie(idul, secret):
+def débuter_partie(idul, SECRET):
     """Débuter une partie
 
     Args:
@@ -82,10 +81,14 @@ def débuter_partie(idul, secret):
     
     BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
-    rep = requests.post(BASE_URL+'parties', auth=(idul, SECRET))
+    rep = requests.post(BASE_URL+'partie', auth=(idul, SECRET))
 
     
-
+    if rep.status_code == 200:
+        # la requête s'est déroulée normalement;
+        # décoder le JSON et afficher la liste de parties
+        rep = rep.json()
+        return(rep['id'], rep['état'])
     if rep.status_code == 401:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
@@ -97,14 +100,14 @@ def débuter_partie(idul, secret):
         # décoder le JSON et afficher le message d'erreur
         raise RuntimeError (rep[1])
         raise(rep)
-    elif re.status_code != 406 or re.status_code != 200 or re.status_code != 401 :
+    elif rep.status_code != 406 or rep.status_code != 200 or rep.status_code != 401 :
         # Une erreur inattendue est survenue
         raise ConnectionError
-    return(rep['id'], rep['état'])
+    
 
 
 
-def récupérer_partie(id_partie, idul, secret):
+def récupérer_partie(id_partie, idul, SECRET):
     """Récupérer une partie
 
     Args:
@@ -138,13 +141,13 @@ def récupérer_partie(id_partie, idul, secret):
         raise RuntimeError (rep[1])
         raise(rep)
     
-    elif re.status_code != 406 or re.status_code != 200 or re.status_code != 401 :
+    elif rep.status_code != 406 or rep.status_code != 200 or rep.status_code != 401 :
         # Une erreur inattendue est survenue
         raise ConnectionError
 
     return(rep['id'], rep['état'], rep['gagnant']) 
 
-def jouer_coup(id_partie, type_coup, position, idul, secret):
+def jouer_coup(id_partie, type_coup, position, idul, SECRET):
     """Jouer un coup
 
     Args:
@@ -172,28 +175,31 @@ def jouer_coup(id_partie, type_coup, position, idul, secret):
     
     BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
-    rep = requests.put(BASE_URL+'jouer', auth=(idul, SECRET),
-    json={
-        "id": "clé-de-la-partie",
-        "type": "D",
-        "pos": [2, 6],
+    rep = requests.put(BASE_URL+'jouer', auth=(idul, SECRET),json={
+        "id": id_partie,
+        "type": type_coup,
+        "pos": position,
     })
-    rep = rep.json()
+
+    rep.json()
+
+   
     
     if rep.status_code == 401:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         rep = rep.json()
-        raise PermissionError (rep[1])
+        raise PermissionError ('message')
 
     elif rep.status_code == 406:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
-        raise RuntimeError (rep[1])
-        raise(rep)
-    elif re.status_code != 406 or re.status_code != 200 or re.status_code != 401 :
+        rep = rep.json()
+        raise RuntimeError (rep['message'])
+        
+    elif rep.status_code != 406 or rep.status_code != 200 or rep.status_code != 401 :
         # Une erreur inattendue est survenue
         raise ConnectionError
     if rep['gagnant'] != None:
         raise StopIteration (rep['gagnant'])
-    return(rep['id']. rep['état'], rep['gagnant'])
+    return((rep['id']), (rep['état']), (rep['gagnant']))
