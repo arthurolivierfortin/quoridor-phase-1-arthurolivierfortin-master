@@ -28,5 +28,5 @@ if __name__ == "__main__":
                 type_coup,
                 position,
                 args.idul,
-                SECRET,
+                secret,
             )
