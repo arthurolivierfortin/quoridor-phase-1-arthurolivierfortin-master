@@ -189,7 +189,11 @@ def récupérer_le_coup():
         Quel type de coup voulez-vous jouer? ('D', 'MH', 'MV'):
         Donnez la position où appliquer ce coup (x,y): 2,6
     """
+
+    type_coup = input("Quel type de coup voulez-vous jouer? ('D', 'MH', 'MV'):")
+    x = input("Donnez la position où appliquer ce coup (x,y):")
+    p = int(x[0])
+    w = int(x[2])
+    position = [p, w]
+    return(type_coup, position)
     
-    x = input("Quel type de coup voulez-vous jouer? ('D', 'MH', 'MV'):")
-    y = input("Donnez la position où appliquer ce coup (x,y):")
-    return(x, y)
