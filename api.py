@@ -100,7 +100,7 @@ def débuter_partie(idul, secret):
     elif re.status_code != 406 or re.status_code != 200 or re.status_code != 401 :
         # Une erreur inattendue est survenue
         raise ConnectionError
-    return(rep['id'], rep['état'], rep['gagnant'])
+    return(rep['id'], rep['état'])
 
 
 
@@ -168,4 +168,32 @@ def jouer_coup(id_partie, type_coup, position, idul, secret):
             et de l'état courant du jeu, après avoir décodé
             le JSON de sa réponse.
     """
+    import requests
     
+    BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
+
+    rep = requests.put(BASE_URL+'jouer', auth=(idul, SECRET),
+    json={
+        "id": "clé-de-la-partie",
+        "type": "D",
+        "pos": [2, 6],
+    })
+    rep = rep.json()
+    
+    if rep.status_code == 401:
+        # Votre requête est invalide;
+        # décoder le JSON et afficher le message d'erreur
+        rep = rep.json()
+        raise PermissionError (rep[1])
+
+    elif rep.status_code == 406:
+        # Votre requête est invalide;
+        # décoder le JSON et afficher le message d'erreur
+        raise RuntimeError (rep[1])
+        raise(rep)
+    elif re.status_code != 406 or re.status_code != 200 or re.status_code != 401 :
+        # Une erreur inattendue est survenue
+        raise ConnectionError
+    if rep['gagnant'] != None:
+        raise StopIteration (rep['gagnant'])
+   return(rep['id']. rep['état'], rep['gagnant'])
