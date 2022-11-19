@@ -78,12 +78,12 @@ def débuter_partie(idul, SECRET):
             le JSON de sa réponse.
     """
     import requests
-    
+
     BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
     rep = requests.post(BASE_URL+'partie', auth=(idul, SECRET))
 
-    
+
     if rep.status_code == 200:
         # la requête s'est déroulée normalement;
         # décoder le JSON et afficher la liste de parties
@@ -102,7 +102,7 @@ def débuter_partie(idul, SECRET):
     elif rep.status_code != 406 and rep.status_code != 200 and rep.status_code != 401 :
         # Une erreur inattendue est survenue
         raise ConnectionError
-    
+
 
 
 
@@ -127,7 +127,7 @@ def récupérer_partie(id_partie, idul, SECRET):
     BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
     rep = requests.get(BASE_URL+'parties/'+f'<{id_partie}>', auth=(idul, SECRET))
-    
+
     if rep.status_code == 401:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
@@ -139,12 +139,12 @@ def récupérer_partie(id_partie, idul, SECRET):
         # décoder le JSON et afficher le message d'erreur
         raise RuntimeError (rep[1])
         raise(rep)
-    
+
     elif rep.status_code != 406 and rep.status_code != 200 and rep.status_code != 401 :
         # Une erreur inattendue est survenue
         raise ConnectionError
 
-    return(rep['id'], rep['état'], rep['gagnant']) 
+    return(rep['id'], rep['état'], rep['gagnant'])
 
 def jouer_coup(id_partie, type_coup, position, idul, SECRET):
     """Jouer un coup
@@ -171,17 +171,17 @@ def jouer_coup(id_partie, type_coup, position, idul, SECRET):
             le JSON de sa réponse.
     """
     import requests
-    
+
     BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
     rep = requests.put(BASE_URL+'jouer', auth=(idul, SECRET),json={
         "id": id_partie,
         "type": type_coup,
         "pos": position,})
-    
+
     rep.json()
-    
-    
+
+
     if rep.status_code == 401:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
@@ -193,7 +193,7 @@ def jouer_coup(id_partie, type_coup, position, idul, SECRET):
         # décoder le JSON et afficher le message d'erreur
         rep = rep.json()
         raise RuntimeError (rep['message'])
-        
+
     elif rep.status_code != 406 and rep.status_code != 200 and rep.status_code != 401 :
         # Une erreur inattendue est survenue
         raise ConnectionError
@@ -201,4 +201,4 @@ def jouer_coup(id_partie, type_coup, position, idul, SECRET):
         rep = rep.json()
         if (rep['gagnant']) != None:
             raise StopIteration (rep['gagnant'])
-        return(rep['id'], rep['état']) 
+        return(rep['id'], rep['état'])
