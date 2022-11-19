@@ -169,7 +169,13 @@ def formater_les_parties(parties):
     Returns:
         str: Représentation des parties
     """
-    
+    liste = ''
+    for i in range(len(parties)):
+        if (parties[i]['gagnant']) == None:
+           liste += (f"{i} : {parties[i]['date']}, {parties[i]['joueurs']}\n")
+        else:
+           liste += (f"{i} : {parties[i]['date']}, {parties[i]['joueurs']}, gagnant {parties[i]['gagnant']}\n") 
+    return liste
 
 
 def récupérer_le_coup():
