@@ -196,4 +196,4 @@ def jouer_coup(id_partie, type_coup, position, idul, secret):
         raise ConnectionError
     if rep['gagnant'] != None:
         raise StopIteration (rep['gagnant'])
-   return(rep['id']. rep['état'], rep['gagnant'])
+    return(rep['id']. rep['état'], rep['gagnant'])
