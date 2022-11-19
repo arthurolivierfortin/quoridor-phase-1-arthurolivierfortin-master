@@ -7,7 +7,7 @@ from quoridor import (analyser_commande, formater_jeu, formater_les_parties,
                       récupérer_le_coup)
 
 # Mettre ici votre secret récupérer depuis le site de PAX
-SECRET = ""
+SECRET = "07088f23-df64-4ff3-a352-08cb9a19158d"
 
 
 if __name__ == "__main__":
