@@ -7,16 +7,16 @@ from quoridor import (analyser_commande, formater_jeu, formater_les_parties,
                       récupérer_le_coup)
 
 # Mettre ici votre secret récupérer depuis le site de PAX
-SECRET = "07088f23-df64-4ff3-a352-08cb9a19158d"
+secret = "07088f23-df64-4ff3-a352-08cb9a19158d"
 
 
 if __name__ == "__main__":
     args = analyser_commande()
     if args.parties:
-        parties = lister_parties(args.idul, SECRET)
+        parties = lister_parties(args.idul, secret)
         print(formater_les_parties(parties))
     else:
-        id_partie, état = débuter_partie(args.idul, SECRET)
+        id_partie, état = débuter_partie(args.idul, secret)
         while True:
             # Afficher la partie
             print(formater_jeu(état))

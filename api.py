@@ -13,7 +13,7 @@ Functions:
 import requests
 BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
 
-def lister_parties(idul, SECRET):
+def lister_parties(idul, secret):
     """Lister les parties
 
     Args:
@@ -30,7 +30,7 @@ def lister_parties(idul, SECRET):
              après avoir décodé le json de sa réponse.
     """
 
-    rep = requests.get(BASE_URL+'parties', auth=(idul, SECRET))
+    rep = requests.get(BASE_URL+'parties', auth=(idul, secret))
 
     if rep.status_code == 200:
         # la requête s'est déroulée normalement;
@@ -54,7 +54,7 @@ def lister_parties(idul, SECRET):
         raise ConnectionError
 
 
-def débuter_partie(idul, SECRET):
+def débuter_partie(idul, secret):
     """Débuter une partie
 
     Args:
@@ -72,7 +72,7 @@ def débuter_partie(idul, SECRET):
             le JSON de sa réponse.
     """
 
-    rep = requests.post(BASE_URL+'partie', auth=(idul, SECRET))
+    rep = requests.post(BASE_URL+'partie', auth=(idul, secret))
 
 
     if rep.status_code == 200:
@@ -97,7 +97,7 @@ def débuter_partie(idul, SECRET):
 
 
 
-def récupérer_partie(id_partie, idul, SECRET):
+def récupérer_partie(id_partie, idul, secret):
     """Récupérer une partie
 
     Args:
@@ -116,7 +116,7 @@ def récupérer_partie(id_partie, idul, SECRET):
             le JSON de sa réponse.
     """
 
-    rep = requests.get(BASE_URL+'parties/'+f'<{id_partie}>', auth=(idul, SECRET))
+    rep = requests.get(BASE_URL+'parties/'+f'<{id_partie}>', auth=(idul, secret))
 
     if rep.status_code == 401:
         # Votre requête est invalide;
@@ -136,7 +136,7 @@ def récupérer_partie(id_partie, idul, SECRET):
 
     return(rep['id'], rep['état'], rep['gagnant'])
 
-def jouer_coup(id_partie, type_coup, position, idul, SECRET):
+def jouer_coup(id_partie, type_coup, position, idul, secret):
     """Jouer un coup
 
     Args:
@@ -161,7 +161,7 @@ def jouer_coup(id_partie, type_coup, position, idul, SECRET):
             le JSON de sa réponse.
     """
 
-    rep = requests.put(BASE_URL+'jouer', auth=(idul, SECRET),json={
+    rep = requests.put(BASE_URL+'jouer', auth=(idul, secret),json={
         "id": id_partie,
         "type": type_coup,
         "pos": position,})
