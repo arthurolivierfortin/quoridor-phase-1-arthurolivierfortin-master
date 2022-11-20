@@ -21,9 +21,9 @@ def analyser_commande():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'idul', 
-        type=str, 
-        default=None, 
+        'idul',
+        type=str,
+        default=None,
         help='IDUL du joueur')
     parser.add_argument(
         '-p',
@@ -31,7 +31,6 @@ def analyser_commande():
         help='Lister les parties existantes',
         action='store_true' )
     # Complétez le code ici
-    args = parser.parse_args()
     # vous pourriez aussi avoir à ajouter des arguments dans ArgumentParser(...)
 
     return parser.parse_args()
@@ -50,29 +49,29 @@ def formater_légende(joueurs):
     x = joueurs
     nb_murs_joueur1 = x[0]['murs']
     nb_murs_automate = x[1]['murs']
-    nom_IDUL = x[0]['nom']
+    nom_idul = x[0]['nom']
     nom_automate = x[1]['nom']
-    différence_espace = len(nom_IDUL) - len(nom_automate)
+    différence_espace = len(nom_idul) - len(nom_automate)
     espace_ajoutée_automate = 0
-    espace_ajoutée_IDUL = 0
+    espace_ajoutée_idul = 0
     if différence_espace > 0:
         espace_ajoutée_automate = 0
         espace_ajoutée_automate = ((' '*(différence_espace)))
-        murs_IDUL = (nb_murs_joueur1*'|')
+        murs_idul = (nb_murs_joueur1*'|')
         murs_automate = (nb_murs_automate*'|')
-        Légende = ("Légende:\n"   f"   1={nom_IDUL}, murs={murs_IDUL}\n"   f"   2={nom_automate}, {espace_ajoutée_automate}murs={murs_automate}\n")
-        return Légende
+        legende = ("Légende:\n"   f"   1={nom_idul}, murs={murs_idul}\n"   f"   2={nom_automate}, {espace_ajoutée_automate}murs={murs_automate}\n")
+        return legende
     if différence_espace < 0:
-        espace_ajoutée_IDUL = 0
-        espace_ajoutée_IDUL = ((' '*(-1*(différence_espace))))
-        murs_IDUL = (nb_murs_joueur1*'|')
+        espace_ajoutée_idul = 0
+        espace_ajoutée_idul = ((' '*(-1*(différence_espace))))
+        murs_idul = (nb_murs_joueur1*'|')
         murs_automate = (nb_murs_automate*'|')
-        Légende = ("Légende:\n"   f"   1={nom_IDUL}, {espace_ajoutée_IDUL}murs={murs_IDUL}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
-        return Légende
-    murs_IDUL = nb_murs_joueur1*'|'
+        legende = ("Légende:\n"   f"   1={nom_idul}, {espace_ajoutée_idul}murs={murs_idul}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
+        return legende
+    murs_idul = nb_murs_joueur1*'|'
     murs_automate = nb_murs_automate*'|'
-    Légende = ("Légende:\n"   f"   1={nom_IDUL}, murs={murs_IDUL}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
-    return Légende
+    legende = ("Légende:\n"   f"   1={nom_idul}, murs={murs_idul}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
+    return legende
 
 
 def formater_damier(joueurs, murs):
@@ -107,7 +106,7 @@ def formater_damier(joueurs, murs):
         "1 | .   .   .   .   .   .   .   .   . |\n"
         "--|-----------------------------------\n"
         "  | 1   2   3   4   5   6   7   8   9\n"
-    )  
+    )
 
     damier = damier_vide
     murs_verticaux = murs["verticaux"]
@@ -180,7 +179,7 @@ def formater_les_parties(parties):
     liste = ''
     for i in range(len(parties)):
         if (parties[i]['gagnant']) == None:
-           liste += (f"{i} : {parties[i]['date']}, {parties[i]['joueurs']}\n")
+            liste += (f"{i} : {parties[i]['date']}, {parties[i]['joueurs']}\n")
         else:
             liste += (f"{i} : {parties[i]['date']}, {parties[i]['joueurs']}, gagnant {parties[i]['gagnant']}\n")
     return liste
@@ -204,4 +203,3 @@ def récupérer_le_coup():
     w = int(x[2])
     position = [p, w]
     return(type_coup, position)
-
