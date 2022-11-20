@@ -49,9 +49,8 @@ def lister_parties(idul, secret):
         # décoder le JSON et afficher le message d'erreur
         raise RuntimeError (rep[1])
 
-    else:
         # Une erreur inattendue est survenue
-        raise ConnectionError
+    raise ConnectionError
 
 
 def débuter_partie(idul, secret):
@@ -90,9 +89,8 @@ def débuter_partie(idul, secret):
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         raise RuntimeError (rep[1])
-    elif rep.status_code != 406 and rep.status_code != 200 and rep.status_code != 401 :
         # Une erreur inattendue est survenue
-        raise ConnectionError
+    raise ConnectionError
 
 
 
@@ -128,7 +126,7 @@ def récupérer_partie(id_partie, idul, secret):
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         raise RuntimeError (rep[1])
-        raise(rep)
+
 
     elif rep.status_code != 406 and rep.status_code != 200 and rep.status_code != 401 :
         # Une erreur inattendue est survenue
@@ -173,7 +171,7 @@ def jouer_coup(id_partie, type_coup, position, idul, secret):
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         rep = rep.json()
-        raise PermissionError ('message')
+        raise PermissionError (rep['message'])
 
     elif rep.status_code == 406:
         # Votre requête est invalide;
@@ -186,6 +184,6 @@ def jouer_coup(id_partie, type_coup, position, idul, secret):
         raise ConnectionError
     else:
         rep = rep.json()
-        if (rep['gagnant']) != None:
+        if (rep['gagnant']) not in None:
             raise StopIteration (rep['gagnant'])
         return(rep['id'], rep['état'])
