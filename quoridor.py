@@ -52,21 +52,21 @@ def formater_légende(joueurs):
     nom_idul = x[0]['nom']
     nom_automate = x[1]['nom']
     différence_espace = len(nom_idul) - len(nom_automate)
-    espace_ajoutée_automate = 0
-    espace_ajoutée_idul = 0
+    espace_ajoutee_automate = 0
+    espace_ajoutee_idul = 0
     if différence_espace > 0:
-        espace_ajoutée_automate = 0
-        espace_ajoutée_automate = ((' '*(différence_espace)))
+        espace_ajoutee_automate = 0
+        espace_ajoutee_automate = ((' '*(différence_espace)))
         murs_idul = (nb_murs_joueur1*'|')
         murs_automate = (nb_murs_automate*'|')
-        legende = ("Légende:\n"   f"   1={nom_idul}, murs={murs_idul}\n"   f"   2={nom_automate}, {espace_ajoutée_automate}murs={murs_automate}\n")
+        legende = ("Légende:\n"   f"   1={nom_idul}, murs={murs_idul}\n"   f"   2={nom_automate}, {espace_ajoutee_automate}murs={murs_automate}\n")
         return legende
     if différence_espace < 0:
-        espace_ajoutée_idul = 0
-        espace_ajoutée_idul = ((' '*(-1*(différence_espace))))
+        espace_ajoutee_idul = 0
+        espace_ajoutee_idul = ((' '*(-1*(différence_espace))))
         murs_idul = (nb_murs_joueur1*'|')
         murs_automate = (nb_murs_automate*'|')
-        legende = ("Légende:\n"   f"   1={nom_idul}, {espace_ajoutée_idul}murs={murs_idul}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
+        legende = ("Légende:\n"   f"   1={nom_idul}, {espace_ajoutee_idul}murs={murs_idul}\n"   f"   2={nom_automate}, murs={murs_automate}\n")
         return legende
     murs_idul = nb_murs_joueur1*'|'
     murs_automate = nb_murs_automate*'|'
@@ -111,7 +111,7 @@ def formater_damier(joueurs, murs):
     damier = damier_vide
     murs_verticaux = murs["verticaux"]
     murs_horizontaux = murs["horizontaux"]
-    positionnement_IDUL = joueurs[0]['pos']
+    positionnement_idul = joueurs[0]['pos']
     positionnement_automate = joueurs[1]['pos']
     for i in murs_verticaux:
         x = damier.find(str(i[1]))
@@ -135,9 +135,9 @@ def formater_damier(joueurs, murs):
         damier[y+x+6] = ('-')
         z = ''.join(damier)
         damier = (z)
-    x = damier.find(str(positionnement_IDUL[1]))
+    x = damier.find(str(positionnement_idul[1]))
     damier = list(damier)
-    y = (4+(4*((positionnement_IDUL[0])-1)))
+    y = (4+(4*((positionnement_idul[0])-1)))
     damier[y+x] = ('1')
     z = ''.join(damier)
     damier = (z)
@@ -151,6 +151,10 @@ def formater_damier(joueurs, murs):
 
 
 def formater_jeu(état):
+    from quoridor import formater_légende
+    from quoridor import formater_damier
+
+
     """Formater la représentation graphique d'un jeu.
 
     Doit faire usage des fonctions formater_légende et formater_damier.
@@ -161,8 +165,7 @@ def formater_jeu(état):
     Returns:
         str: Chaîne de caractères représentant le jeu.
     """
-    from quoridor import formater_légende
-    from quoridor import formater_damier
+
     return formater_légende(état['joueurs']) + formater_damier(état['joueurs'], état['murs'])
 
 
@@ -178,7 +181,7 @@ def formater_les_parties(parties):
     """
     liste = ''
     for i in range(len(parties)):
-        if (parties[i]['gagnant']) == None:
+        if (parties[i]['gagnant']) is None:
             liste += (f"{i} : {parties[i]['date']}, {parties[i]['joueurs']}\n")
         else:
             liste += (f"{i} : {parties[i]['date']}, {parties[i]['joueurs']}, gagnant {parties[i]['gagnant']}\n")
