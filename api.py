@@ -184,6 +184,6 @@ def jouer_coup(id_partie, type_coup, position, idul, secret):
         raise ConnectionError
     else:
         rep = rep.json()
-        if (rep['gagnant']) not in None:
+        if (rep['gagnant']) != None:
             raise StopIteration (rep['gagnant'])
         return(rep['id'], rep['état'])
